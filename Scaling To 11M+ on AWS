@@ -1,0 +1,96 @@
+From: http://highscalability.com/blog/2016/1/11/a-beginners-guide-to-scaling-to-11-million-users-on-amazons.html
+
+A Web stack is the collection of software required for Web development. 
+At a minimum, a Web stack contains an operating system (OS), a programming language, database software and a Web server.
+
+LAMP is one commonly used Web stack. It uses Linux as the operating system, Apache as the Web server, 
+MySQL as the relational database management system and PHP as the object-oriented scripting language. 
+
+A Web stack is one type of solution stack -- an ordered collection of software that performs a particular task. 
+
+1.  User == 1
+
+Vertical Scaling
+You need a bigger box. Simplest approach to scaling is choose a larger instance type. 
+This approach is called vertical scaling.
+Just stop your instance and choose a new instance type and you’re running with more power.
+
+There is a wide mix of different hardware configurations to choose from. You can have a system with 244 gigs of RAM (2TB of RAM types are coming soon). 
+Or one with 40 cores. There are High I/O instances, High CPU Instances, High storage instances.
+
+Vertical scaling has a big problem: there’s no failover, no redundancy. 
+If the instance has a problem your website will die. All your eggs are in one basket.
+
+Eventually a single instances can only get so big. You need to do something else.
+
+2. Users > 10
+
+Separate out a single host into multiple hosts
+
+- One host for the web site.
+
+- One host for the database. Run any database you want, but you are on the hook for the database administration.
+
+- Using separate hosts allows the web site and the database to be scaled independently of each other. 
+
+- Or instead of running your own database you could use a database service.
+Amazon has several  fully managed database services to sell you:
+
+Amazon RDS (Relational Database Service). There are many options: Microsoft SQL Server, Oracle, MySQL, PostgreSQL, MariaDB, Amazon Aurora.
+
+Amazon DynamoDB. A NoSQL managed database.
+
+Amazon Redshift. A petabyte scale data warehouse system.
+
+- Start with a SQL database instead of a NoSQL database.
+
+The suggestion is to start with a SQL database.
+
+The technology is established.
+
+There’s lots of existing code, communities, support groups, books, and tools.
+
+You aren’t going to break a SQL database with your first 10 million users. Not even close. (unless your data is huge).
+
+Clear patterns to scalability.
+
+- When might you need start with a NoSQL database?
+
+If you need to store > 5 TB of data in year one or you have an incredibly data intensive workload.
+
+Your application has super low-latency requirements.
+
+You need really high throughput. You need to really tweak the IOs you are getting both on the reads and the writes.
+
+You don’t have any relational data.
+
+3. Users > 100
+
+Use a separate host for the web tier.
+
+Store the database on Amazon RDS. It takes care of everything.
+
+4. Users > 1000
+
+- As architected your application has availability issues. If the host for your web service fails then your web site goes down.
+
+- So you need another web instance in another Availability Zone. That’s OK because the latency between the AZs is in the low single digit milliseconds, 
+almost like they right next to each other.
+
+- You also need to a slave database to RDS that runs in another AZ. If there’s a problem with the master your application will automatically switch over to the slave. 
+There are no application changes necessary on the failover because your application always uses the same endpoint.
+
+- An Elastic Load Balancer (ELB) is added to the configuration to load balance users between your two web host instances in the two AZs.
+
+- Elastic Load Balancer (ELB):
+
+ELB is a highly available managed load balancer. The ELB exists in all AZs. It’s a single DNS endpoint for your application. 
+Just put it in Route 53 and it will load balance across your web host instances.
+
+The ELB has Health Checks that make sure traffic doesn’t flow to failed hosts.
+
+It scales without your doing anything. If it sees additional traffic it scales behind the scenes both horizontally and vertically. 
+You don’t have to manage it. As your applications scales so is the ELB.
+
+5. Users > 10,000s - 100,000s
+
