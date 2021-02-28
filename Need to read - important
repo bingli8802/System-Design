@@ -1,0 +1,19 @@
+checkcheckzz/system-design-interview 很多东西需要读 把這裡的文章都K過你就比大多數candidate強很多了
+https://github.com/checkcheckzz/system-design-interview#tips
+
+System design 這是個非常好的互動式網站 他是一步一步漸進式的問你每個你在面試中該問的問題 帶你走過一遍system design interview的process 非常建議這裡面的八題都要寫過
+https://www.interviewbit.com/courses/system-design/
+
+Scalable Web Architecture and Distributed Systems
+http://www.aosabook.org/en/distsys.html
+
+A Beginner's Guide To Scaling To 11 Million+ Users On Amazon's AWS 從小公司到上億用戶公司的架構演進(非常建議讀)
+http://highscalability.com/blog/2016/1/11/a-beginners-guide-to-scaling-to-11-million-users-on-amazons.html
+
+Interview Preparation
+https://www.evernote.com/shard/s576/client/snv?noteGuid=7e58b450-1abe-43a8-bf82-fbf07f1db13c&noteKey=049802174415b418a2e65f75b744ab72&sn=https%3A%2F%2Fwww.evernote.com%2Fshard%2Fs576%2Fsh%2F7e58b450-1abe-43a8-bf82-fbf07f1db13c%2F049802174415b418a2e65f75b744ab72&title=Interview%2BPreparation
+
+
+其實有工作經驗的都知道 你很常需要去design一個新的project 而釐清use case這些事情是基本 連use case都沒問那面試官根本不會覺得你是個好的工程師 
+主要考察的是communication and problem solving, 給你一個開放性問題 你怎麼分析step by step, 你如何跟別人討論你的idea, 如何optimize你的system 
+往這個方向想就覺得其實system design真的沒什麼好怕的 
