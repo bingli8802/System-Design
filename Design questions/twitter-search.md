@@ -9,8 +9,8 @@ Twitter users can update their status whenever they like. Each status (called tw
 
 ## 2. Requirements and Goals of the System
 
-* Let’s assume Twitter has 1.5 billion total users with 800 million daily active users.
-* On average Twitter gets 400 million tweets every day.
+* Let’s assume Twitter has 3 billion total users with 200 million daily active users.
+* On average Twitter gets 500 million tweets every day.
 * The average size of a tweet is 300 bytes.
 * Let’s assume there will be 500M searches every day.
 * The search query will consist of multiple words combined with AND/OR.
@@ -19,13 +19,13 @@ We need to design a system that can efficiently store and query tweets.
 
 ## 3. Capacity Estimation and Constraints
 
-**Storage Capacity**: Since we have 400 million new tweets every day and each tweet on average is 300 bytes, the total storage we need, will be:
+**Storage Capacity**: Since we have 500 million new tweets every day and each tweet on average is 300 bytes, the total storage we need, will be:
 
-400M * 300 => 120GB/day
+500M * 300 => 150GB/day
 
 Total storage per second:
 
-120GB / 24hours / 3600sec ~= 1.38MB/second
+150GB / 24hours / 3600sec ~= 1.73MB/second
 
 ## 4. System APIs
 
