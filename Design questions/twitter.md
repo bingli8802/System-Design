@@ -86,7 +86,7 @@ At a high level, we need multiple application servers to serve all these request
 
 ![](../img/twitter-1.png)
 
-Although our expected daily write load is 100 million and read load is 28 billion tweets. This means on average our system will receive around 1160 new tweets and 325K read requests per second. This traffic will be distributed unevenly throughout the day, though, at peak time we should expect at least a few thousand write requests and around 1M read requests per second. We should keep this in mind while designing the architecture of our system.
+Although our expected daily write load is 100 million and read load is 28 billion tweets. This means on average our system will receive around 1150 new tweets and 325K read requests per second. This traffic will be distributed unevenly throughout the day, though, at peak time we should expect at least a few thousand write requests and around 1M read requests per second. We should keep this in mind while designing the architecture of our system.
 
 ## 6. Database Schema
 We need to store data about users, their tweets, their favorite tweets, and people they follow.
