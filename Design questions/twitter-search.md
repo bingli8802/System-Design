@@ -54,17 +54,17 @@ At the high level, we need to store all the statues in a database and also build
 
 ## 6. Detailed Component Design
 
-**1. Storage**: We need to store 120GB of new data every day. Given this huge amount of data, we need to come up with a data partitioning scheme that will be efficiently distributing the data onto multiple servers. If we plan for next five years, we will need the following storage:
+**1. Storage**: We need to store 150GB of new data every day. Given this huge amount of data, we need to come up with a data partitioning scheme that will be efficiently distributing the data onto multiple servers. If we plan for next five years, we will need the following storage:
 
-#### <div align="center">120GB * 365days * 5years ~= 200TB</div>
+#### <div align="center">150GB * 365days * 5years ~= 274TB</div>
 
-If we never want to be more than 80% full at any time, we approximately will need 250TB of total storage. Let’s assume that we want to keep an extra copy of all tweets for fault tolerance; then, our total storage requirement will be 500TB. If we assume a modern server can store up to 4TB of data, we would need 125 such servers to hold all of the required data for the next five years.
+If we never want to be more than 90% full at any time, we approximately will need 300TB of total storage. Let’s assume that we want to keep an extra copy of all tweets for fault tolerance; then, our total storage requirement will be 600TB. If we assume a modern server can store up to 4TB of data, we would need 150 such servers to hold all of the required data for the next five years.
 
 Let’s start with a simplistic design where we store the tweets in a MySQL database. We can assume that we store the tweets in a table having two columns, TweetID and TweetText. Let’s assume we partition our data based on TweetID. If our TweetIDs are unique system-wide, we can define a hash function that can map a TweetID to a storage server where we can store that tweet object.
 
-How can we create system-wide unique TweetIDs? If we are getting 400M new tweets each day, then how many tweet objects we can expect in five years?
+How can we create system-wide unique TweetIDs? If we are getting 500M new tweets each day, then how many tweet objects we can expect in five years?
 
-#### <div align="center">400M * 365 days * 5 years => 730 billion</div>
+#### <div align="center">500M * 365 days * 5 years => 900 billion</div>
 
 This means we would need a five bytes number to identify TweetIDs uniquely. Let’s assume we have a service that can generate a unique TweetID whenever we need to store an object (The TweetID discussed here will be similar to TweetID discussed in [Designing Twitter](twitter.md)). We can feed the TweetID to our hash function to find the storage server and store our tweet object there.
 
@@ -72,15 +72,15 @@ This means we would need a five bytes number to identify TweetIDs uniquely. Let�
 
 #### <div align="center">500K * 5 => 2.5 MB</div>
 
-Let’s assume that we want to keep the index in memory for all the tweets from only past two years. Since we will be getting 730B tweets in 5 years, this will give us 292B tweets in two years. Given that each TweetID will be 5 bytes, how much memory will we need to store all the TweetIDs?
+Let’s assume that we want to keep the index in memory for all the tweets from only past two years. Since we will be getting 900B tweets in 5 years, this will give us 360B tweets in two years. Given that each TweetID will be 5 bytes, how much memory will we need to store all the TweetIDs?
 
-#### <div align="center">292B * 5 => 1460 GB</div>
+#### <div align="center">360B * 5 => 1800 GB</div>
 
 So our index would be like a big distributed hash table, where ‘key’ would be the word and ‘value’ will be a list of TweetIDs of all those tweets which contain that word. Assuming on average we have 40 words in each tweet and since we will not be indexing prepositions and other small words like ‘the’, ‘an’, ‘and’ etc., let’s assume we will have around 15 words in each tweet that need to be indexed. This means each TweetID will be stored 15 times in our index. So total memory we will need to store our index:
 
-#### <div align="center">(1460 * 15) + 2.5MB ~= 21 TB</div>
+#### <div align="center">(1800 * 15) + 2.5MB ~= 27 TB</div>
 
-Assuming a high-end server has 144GB of memory, we would need 152 such servers to hold our index.
+Assuming a high-end server has 144GB of memory, we would need 188 such servers to hold our index.
 
 We can partition our data based on two criteria:
 
