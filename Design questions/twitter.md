@@ -31,7 +31,7 @@ We will be designing a simpler version of Twitter with the following requirement
 7. Moments.
 
 ## 3. Capacity Estimation and Constraints
-Let’s assume we have one billion total users with 200 million daily active users (DAU). Also assume we have 100 million new tweets every day and on average each user follows 200 people.
+Let’s assume we have 3 billion total users with 200 million daily active users (DAU). Also assume we have 100 million new tweets every day and on average each user follows 200 people.
 
 **How many favorites per day?** If, on average, each user favorites five tweets per day we will have:
 
@@ -41,9 +41,9 @@ Let’s assume we have one billion total users with 200 million daily active use
 
 #### <div align="center">200M DAU * ((2 + 5) * 20 tweets) => 28B/day</div>
   
-**Storage Estimates**: Let’s say each tweet has 140 characters and we need two bytes to store a character without compression. Let’s assume we need 30 bytes to store metadata with each tweet (like ID, timestamp, user ID, etc.). Total storage we would need:
+**Storage Estimates**: Let’s say each tweet has 140 characters and we need two bytes to store a character without compression. Let’s assume we need 20 bytes to store metadata with each tweet (like ID, timestamp, user ID, etc.). Total storage we would need:
 
-#### <div align="center">100M * (280 + 30) bytes => 30GB/day</div>
+#### <div align="center">100M * (280 + 20) bytes => 30GB/day</div>
   
 What would our storage needs be for five years? How much storage we would need for users’ data, follows, favorites? We will leave this for the exercise.
 
@@ -51,7 +51,7 @@ Not all tweets will have media, let’s assume that on average every fifth tweet
 
 #### <div align="center">(100M/5 photos * 200KB) + (100M/10 videos * 2MB) ~= 24TB/day</div>
   
-**Bandwidth Estimates**: Since total ingress is 24TB per day, this would translate into 290MB/sec.
+**Bandwidth Estimates**: Since total ingress is 24TB per day, this would translate into 278MB/sec, 24TB / 86400sec = 278MB/sec
 
 Remember that we have 28B tweet views per day. We must show the photo of every tweet (if it has a photo), but let’s assume that the users watch every 3rd video they see in their timeline. So, total egress will be:
 
