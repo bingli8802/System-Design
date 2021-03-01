@@ -22,3 +22,5 @@ Here are some useful links for further reading:
 9. [MapReduce](https://static.googleusercontent.com/media/research.google.com/en//archive/mapreduce-osdi04.pdf) - Simplified Data Processing on Large Clusters
 
 10. [Hadoop](http://storageconference.us/2010/Papers/MSST/Shvachko.pdf) - A Distributed File System
+
+11. [System design concepts & designs](https://github.com/RickSayd/navigating-system-design)
