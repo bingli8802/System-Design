@@ -35,7 +35,7 @@ The system would be read-heavy, so we will focus on building a system that can r
 3. Data should be 100% reliable. If a user uploads a photo, the system will guarantee that it will never be lost.
 
 ## 4. Capacity Estimation and Constraints
-* Let’s assume we have 500M total users, with 1M daily active users.
+* Let’s assume we have 1 billion total users, with 500M daily active users.
 * 2M new photos every day, 23 new photos every second.
 * Average photo file size => 200KB
 * Total space required for 1 day of photos
